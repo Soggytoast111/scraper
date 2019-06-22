@@ -12,7 +12,7 @@ router.get("/", function(req, res) {
 // A GET route for scraping the echoJS website
 router.get("/scrape", function(req, res) {
 
-  var user = "twilighterror";
+  var user = "derangedwinchester";
   
   // First, we grab the body of the html with axios
   axios.get("https://old.reddit.com/user/" + user + "?limit=100").then(function(response) {
@@ -29,7 +29,9 @@ router.get("/scrape", function(req, res) {
       htmlObj.link = $(this).attr("data-permalink");
       htmlObj.time = $(this).children(".entry").children(".tagline").children("time").attr("datetime") || $(this).children(".entry").children(".top-matter").children(".tagline").children("time").attr("datetime")
       htmlObj.type = $(this).attr("data-type")
-        console.log(htmlObj)
+      htmlObj.content = $(this).children(".entry").children("form").children(".usertext-body").children(".md").children("p").text() || "N/A (Link/Text Submission)"
+      htmlObj.redditId = $(this).attr("id")
+      console.log(htmlObj)
         htmlArray.push(htmlObj)
       // Create a new Article using the `result` object built from scraping
       //db.Article.create(result)
@@ -43,6 +45,10 @@ router.get("/scrape", function(req, res) {
       //  });
       
     })
+    var nextButton = $(".next-button").children("a").attr("href")
+    
+    console.log("Here is the next button link:  " + (nextButton || "END OF RESULTS"))
+    
     // Send a message to the client
     res.json(htmlArray)
   });
