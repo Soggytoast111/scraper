@@ -15,12 +15,16 @@
       <table class="table" id="results">
         <thead>
           <tr>
-            <th scope="col" id="animal-name">Name</th>
-            <th scope="col" id="animal-legs">Num Legs</th>
-            <th scope="col" id="animal-class">Class</th>
-            <th scope="col" id="animal-weight">Weight</th>
-            <th scope="col" id="animal-new-name">But I'd Call It...</th>
+            <th scope="col" id="title">Title</th>
+            <th scope="col" id="link">Link</th>
+            <th scope="col" id="time">Time</th>
+            <th scope="col" id="type">Type</th>
           </tr>
+          {{#each this}}
+            {{#if this.title}}
+              {{> table-row}}
+            {{/if}}
+          {{/each}}
         </thead>
         <tbody>
           <!-- Results from DB here -->
@@ -29,3 +33,5 @@
   </div>
   <div class="col-2"></div>
 </div>
+
+<script src="../public/assets/js/app.js"></script>

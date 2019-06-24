@@ -1,5 +1,9 @@
-<form action="./api/destroyTable/{{this.id}}">
-	<button type="submit" value="destroytable" class="destroy-table" data-id="{{this.id}}" data-eaten="{{this.eaten}}">
-		<span>{{this.name}}</span>
-	</button>
-</form>
+<tr>
+	<td>{{this.title}}</td>
+	<td><a href="http://www.reddit.com{{this.link}}">Click Here</a></td>
+	<td>{{this.time}}</td>
+	<td>{{this.type}}</td>
+</tr>
+<tr>
+	<td colspan="4">{{this.content}}</td>
+</tr>
