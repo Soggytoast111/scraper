@@ -13,9 +13,8 @@ router.get("/", function(req, res) {
 // A GET route for scrape by user
 router.get("/scrape/:user", async function(req, res) {
   var user = req.params.user;
-  var userLink = "https://old.reddit.com/user/" + user + "?limit=100"
 
-  scraperApp.scrape(userLink)
+  scraperApp.scrape(user)
   res.send("done")
 });
 
@@ -45,7 +44,7 @@ router.get("/fetch/:user", function(req,res){
   var user = req.params.user;
   db.Results.find({user: user})
   .then(function(dbResult) {
-    res.render("index", dbResult)  
+    res.render("index-fetch", dbResult)  
   })
   .catch(function(err) {
       res.json(err);
@@ -54,7 +53,7 @@ router.get("/fetch/:user", function(req,res){
 
 //Clicking the burger button in the eaten column will delete row in databse (destroy burger) and refresh the page
 router.get("/testtable", function(req,res){
-  res.render("index", testObject)
+  res.render("index-fetch", testObject)
 })
 
 //Clicking Add Burger button takes data from form and updates database (create burger) and then refreshes the page

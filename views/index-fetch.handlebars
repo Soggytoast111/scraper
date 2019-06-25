@@ -16,6 +16,32 @@
     </div>  
     <div class="col-2"></div>
   </div>
+    <br>
+    <hr>
+    <br>
+    <br>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+    <div class="input-group mb-3">
+      <input id="textFilter" type="text" class="form-control" placeholder="Filter" aria-label="Filter" aria-describedby="basic-addon1">
+    </div>
+      <table class="table" id="results">
+        <thead>
+          <tr>
+            <th scope="col" id="title">Title</th>
+            <th scope="col" id="time">Time</th>
+            <th scope="col" id="type">Type</th>
+          </tr>
+          {{#each this}}
+            {{#if this.title}}
+              {{> table-row}}
+            {{/if}}
+          {{/each}}
+        </thead>
+      </table>
+  </div>
+  <div class="col-2"></div>
 </div>
 
 <script src="../public/assets/js/app.js"></script>
