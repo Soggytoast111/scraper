@@ -11,7 +11,7 @@
         </div>
         <br>
         <button class="btn btn-primary" id="scrape">Scrape User's History</button>
-        <button class="btn btn-primary" id="fetch">Fetch User's History</button>
+        <button type="submit" class="btn btn-primary" id="fetch">Fetch User's History</button>
       </div>
     </div>  
     <div class="col-2"></div>
@@ -26,12 +26,12 @@
     <div class="input-group mb-3">
       <input id="textFilter" type="text" class="form-control" placeholder="Filter" aria-label="Filter" aria-describedby="basic-addon1">
     </div>
-      <table class="table" id="results">
-        <thead>
+      <table class="table sticky-header" id="results">
+        <thead class="thead-light">
           <tr>
             <th scope="col" id="title">Title</th>
-            <th scope="col" id="time">Time</th>
-            <th scope="col" id="type">Type</th>
+            <th scope="col" id="time" style="width: 35%">Time</th>
+            <th scope="col" id="type" style="width: 15%">Type</th>
           </tr>
           {{#each this}}
             {{#if this.title}}
@@ -44,38 +44,4 @@
   <div class="col-2"></div>
 </div>
 
-<script src="../public/assets/js/app.js"></script>
-<script> 
-  $("#textFilter").on("keyup", filterTable)
-  
-  function filterTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("textFilter");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("results");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i<tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (i % 2 == 0){
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-          tr[i-1].style.display = "";
-        }
-        else {
-          tr[i].style.display = "none";
-        }             
-      } else{
-          if (txtValue.toUpperCase().indexOf(filter) == -1) {
-            tr[i].style.display = "none";   
-          } else {
-            tr[i].style.display = "";
-            tr[i+1].style.display = "";
-            i++
-          }
-      }
-      }
-    }
-  }
-  </script>
+<script src="../assets/js/app.js"></script>

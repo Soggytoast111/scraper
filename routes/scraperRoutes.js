@@ -10,11 +10,12 @@ router.get("/", function(req, res) {
   res.render("index");
 });
 
-// A GET route for scrape by user
-router.get("/scrape/:user", async function(req, res) {
-  var user = req.params.user;
+// A POST route for scrape
+router.post("/scrape", async function(req, res) {
+  var user = req.body.user;
+  var link = "https://old.reddit.com/user/" + user + "?limit=100"
 
-  scraperApp.scrape(user)
+  scraperApp.scrape(link, user)
   res.send("done")
 });
 
@@ -51,14 +52,51 @@ router.get("/fetch/:user", function(req,res){
   })
 })
 
+// Route for grabbing a specific Article by id, populate it with it's note
+router.get("/result/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  db.Results.findOne({ redditId: req.params.id })
+    // ..and populate all of the notes associated with it
+    .populate("note")
+    .then(function(dbArticle) {
+      // If we were able to successfully find an Article with the given id, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
+
+// Route for saving/updating an Article's associated Note
+router.post("/note/:id", function(req, res) {
+  // Create a new note and pass the req.body to the entry
+  db.Note.create(req.body)
+    .then(function(dbNote) {
+      // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
+      // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
+      // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
+      return db.Results.findOneAndUpdate({ redditId: req.params.id }, { note: dbNote._id }, { new: true });
+    })
+    .then(function(dbArticle) {
+      // If we were able to successfully update an Article, send it back to the client
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+});
+
 //Clicking the burger button in the eaten column will delete row in databse (destroy burger) and refresh the page
 router.get("/testtable", function(req,res){
   res.render("index-fetch", testObject)
 })
 
 //Clicking Add Burger button takes data from form and updates database (create burger) and then refreshes the page
-router.get("/api/createBurger/", function(req,res){
-
+router.post("/buttontest", function(req,res){
+  console.log(req.body)
 })
 
 module.exports = router;

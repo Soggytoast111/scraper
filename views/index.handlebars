@@ -11,45 +11,11 @@
         </div>
         <br>
         <button class="btn btn-primary" id="scrape">Scrape User's History</button>
-        <button class="btn btn-primary" id="fetch">Fetch User's History</button>
+        <button type="submit" class="btn btn-primary" id="fetch">Fetch User's History</button>
       </div>
     </div>  
     <div class="col-2"></div>
   </div>
 </div>
 
-<script src="../public/assets/js/app.js"></script>
-<script> 
-  $("#textFilter").on("keyup", filterTable)
-  
-  function filterTable() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("textFilter");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("results");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i<tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (i % 2 == 0){
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
-          tr[i-1].style.display = "";
-        }
-        else {
-          tr[i].style.display = "none";
-        }             
-      } else{
-          if (txtValue.toUpperCase().indexOf(filter) == -1) {
-            tr[i].style.display = "none";   
-          } else {
-            tr[i].style.display = "";
-            tr[i+1].style.display = "";
-            i++
-          }
-      }
-      }
-    }
-  }
-  </script>
+<script src="../assets/js/app.js"></script>

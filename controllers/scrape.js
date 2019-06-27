@@ -7,26 +7,22 @@ mongoose.connect("mongodb://localhost/scraperApp", { useNewUrlParser: true });
 
 
 var scraperApp = {
-    scrape: function(user) {
-      // TO DO!!!  
-      //  FIX THIS!!
-
-      //PUT LINK BACK IN ROUTES.JS, CALLBACK FUNCTION MUST TAKE LINK AS AN ARGUMENT!
-      //MUST CONCAT USERNAME FROM LINK PASSED IN
-      var link = "https://old.reddit.com/user/" + user + "?limit=100"
-        db.Results.findOne({user: user}).then(function(dbResult1){
+    scrape: function(link, user) {
+      db.Results.findOne({user: user}).sort({time: -1}).then(function(dbResult1){
           if(dbResult1){
             var newestItem = dbResult1.redditId
           }
+          var scraperBreak = false
           htmlArray = []
           axios.get(link).then(function(response) {
 
           var $ = cheerio.load(response.data);
           $(".thing").each(function(i, element) {
               if ($(this).attr("id") == newestItem) {
+                scraperBreak = true
                 console.log("Update Short Circuit!")
                 return false
-              }
+              } else {
               var htmlObj = {};
               htmlObj.title = $(this).children(".entry").children(".top-matter").children(".title").children("a").text() || $(this).children(".parent").children(".title").text()
               htmlObj.link = $(this).attr("data-permalink");
@@ -38,13 +34,24 @@ var scraperApp = {
               console.log(htmlObj)
               htmlArray.push(htmlObj)
               db.Results.create(htmlObj)
+              console.log("created DB Entry:  ")
+              console.log(htmlObj)
+              }
           })
+          if (scraperBreak == false) {
         var nextButton = $(".next-button").children("a").attr("href")
         if (nextButton){
-          scraperApp.scrape(nextButton)
+          scraperApp.scrape(nextButton, user)
         }
         else {
+          console.log("finished scrape!")
+          console.log("user checked was:  " + user)
+          console.log("newestItemwas:  " + newestItem)
           return htmlArray
+        }} else {
+          console.log("Update Short Circuit2! on   " + newestItem)
+          console.log("user was:  " + user)
+          return false
         }
         });
         })
