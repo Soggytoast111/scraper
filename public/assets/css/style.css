@@ -24,3 +24,9 @@ table.floatThead-table{
     height: 200px;
     font-size: 18px;
   }
+
+  #mynotebox {
+      position: fixed;
+      top: 0;
+      right: 0
+  }
