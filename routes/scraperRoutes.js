@@ -19,9 +19,36 @@ router.post("/scrape", async function(req, res) {
   res.send("done")
 });
 
-router.get("/fetch/:user", function(req,res){
+router.get("/fetch/:user/:from/:to", function(req,res){
   var user = req.params.user;
-  db.Results.find({user: user})
+  
+  function calcFrom(from) {
+    if (from == "null") {
+      console.log("null?!")
+      console.log(from)
+      return "1970-05-06T04:00:00.000Z"
+    } else {
+      console.log("here is to!")
+      console.log(from)
+      return from
+    }
+  }
+  function calcTo(to) {
+    if (to === "null") {
+      console.log("null?!")
+      console.log(to)
+      return "2057-02-03T05:00:00.000Z"
+    } else {
+      console.log("here is from!")
+      console.log(to)
+      return to
+    }
+  }
+
+  var fromDate = calcFrom(req.params.from)
+  var toDate = calcTo(req.params.to)
+
+  db.Results.find({user: user, time: {"$gte": fromDate, "$lte": toDate}})
   .then(function(dbResult) {
     res.render("index-fetch", dbResult)  
   })

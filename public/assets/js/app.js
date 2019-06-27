@@ -44,7 +44,7 @@ var testObject = {
   
   //Button Event to fetch user data from db
   $("#fetch").click(function(){
-    window.location = "/fetch/"+ $("#username").val().toLowerCase().trim()
+    window.location = "/fetch/"+ $("#username").val().toLowerCase().trim() + "/" + moment($("#fromDate").val()).toISOString() + "/" + moment($("#toDate").val()).toISOString()
   })
 
   //Button event to have backend scrape reddit for user info
@@ -80,6 +80,8 @@ $(document).on("click", ".pinNote", function() {
       $("#mynotebox").append("<textarea id='bodyinput' name='body'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#mynotebox").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+      // A button to close the box
+      $("#mynotebox").append("<button data-id='" + data._id + "' id='closebox'>Close</button>");
       console.log("Here is data_id!  " + data._id)
       // If there's a note in the article
       if (data.note) {
@@ -90,6 +92,11 @@ $(document).on("click", ".pinNote", function() {
       }
     });
 });
+
+//Close box function
+$(document).on("click", "#closebox", function() {
+  $("#mynotebox").remove();
+})
 
 // When you click the savenote button
 $(document).on("click", "#savenote", function() {
@@ -131,4 +138,6 @@ $('#toDate').datepicker();
 
 $("#results").click(function(){
   console.log($("#fromDate").val())
+  console.log("from Date:  " + moment($("#fromDate").val()).toISOString())
+  console.log("to Date:  " + moment($("#toDate").val()).toISOString())
 })
