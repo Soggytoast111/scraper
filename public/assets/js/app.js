@@ -44,7 +44,11 @@ var testObject = {
   
   //Button Event to fetch user data from db
   $("#fetch").click(function(){
+    if ($("#username").val() == "") {
+      alert("Enter a username!")
+    } else {
     window.location = "/fetch/"+ $("#username").val().toLowerCase().trim() + "/" + moment($("#fromDate").val()).toISOString() + "/" + moment($("#toDate").val()).toISOString()
+    }
   })
 
   //Button event to have backend scrape reddit for user info
