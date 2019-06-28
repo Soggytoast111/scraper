@@ -53,6 +53,13 @@ var testObject = {
 
   //Button event to have backend scrape reddit for user info
   $("#scrape").click(function(){
+    $("#scrape").attr("disabled", "")
+    setTimeout(function(){
+      $("#fetch").removeAttr("disabled")
+    }, 5000)
+    setTimeout(function(){
+      alert("Scraping Complete!")
+    }, 4750)
     $.post("/scrape", 
       {
         user: $("#username").val().toLowerCase().trim()

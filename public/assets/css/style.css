@@ -32,3 +32,9 @@ table.floatThead-table{
       height: 400px;
       width: 250px;
   }
+
+  .table {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
