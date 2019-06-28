@@ -48,7 +48,7 @@ router.get("/fetch/:user/:from/:to", function(req,res){
   var fromDate = calcFrom(req.params.from)
   var toDate = calcTo(req.params.to)
 
-  db.Results.find({user: user, time: {"$gte": fromDate, "$lte": toDate}})
+  db.Results.find({user: user, time: {"$gte": fromDate, "$lte": toDate}}).sort({time: -1 })
   .then(function(dbResult) {
     res.render("index-fetch", dbResult)  
   })
