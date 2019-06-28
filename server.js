@@ -24,7 +24,8 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/scraperApp", { useNewUrlParser: true });
+var mongoURI = process.env.MONGODB_URI || "mongodb://localhost/scraperApp"
+mongoose.connect(mongoURI, { useNewUrlParser: true });
 
 //Routes Require
 var routes = require("./routes/scraperRoutes.js");
