@@ -3,14 +3,14 @@
     <div class="col-2"></div>
     <div class="col-8">
       <div class="text-center" id="buttons">
-        <input id="username" type="text" class="form-control" placeholder="Reddit Username" aria-label="Filter" aria-describedby="basic-addon1">
+        <input data-toggle="tooltip" title="Username of active reddit.com account" id="username" type="text" class="form-control" placeholder="Reddit Username" aria-label="Filter" aria-describedby="basic-addon1">
         <br>
         <div class="row">
-          <div class="col-6"><input id="fromDate" type="text" class="form-control" placeholder="From Date" aria-label="Filter" aria-describedby="basic-addon1"></div>
-          <div class="col-6"><input id="toDate" type="text" class="form-control" placeholder="To Date" aria-label="Filter" aria-describedby="basic-addon1"></div>
+          <div class="col-6"><input data-toggle="tooltip" title="Filter posts by date" id="fromDate" type="text" class="form-control" placeholder="From Date (optional)" aria-label="Filter" aria-describedby="basic-addon1"></div>
+          <div class="col-6"><input data-toggle="tooltip" title="Filter posts by date" id="toDate" type="text" class="form-control" placeholder="To Date (optional)" aria-label="Filter" aria-describedby="basic-addon1"></div>
         </div>
         <br>
-        <button class="btn btn-primary" id="scrape" >Scrape User's History</button>
+        <button class="btn btn-primary" id="scrape">Scrape User's History</button>
         <button type="submit" class="btn btn-primary" id="fetch" disabled>Fetch User's History</button>
       </div>
     </div>  
