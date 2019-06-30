@@ -25,10 +25,14 @@ With the server running, visit localhost:8080 to fire up the app.
 Nothing is required to see the deployed app - just visit the link.
 Might I suggest a few reddit user accounts that could be interesting to peek at:
 
-the-realDonaldTrump - President Donald Trump
+the-realDonaldTrump - President Donald Trump 
+
 PresidentObama - President Barak Obama
+
 AlexJonesInfowarrior - Alex Jones, controversial conspiracy theororist
+
 thisisbillgates - Bill Gates, founder of Microsoft, billionare philanthropist
+
 ElonMusk - technology entrepreneur and visionary, founder and CEO of SpaceX and Tesla
 
 ---------
